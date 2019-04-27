@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mission{% endblock %}
+
+{% block body %}
+<div class="p-3">
+    <h1>Mission</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>N°</th>
+                <td>{{ assignment.id }}</td>
+            </tr>
+            <tr>
+                <th>Interimaire</th>
+                <td>{{ assignment.interim }}</td>
+            </tr>
+            <tr>
+                <th>Contrat</th>
+                <td>{{ assignment.contract }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ assignment.rating }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ assignment.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <a href="{{ path('assignment_index') }}">Retour à la liste</a>
+    <br>
+
+    <div class="mt-5">
+        <a class="btn btn-primary float-left" href="{{ path('assignment_edit', {'id': assignment.id}) }}">Modifier</a>
+        <div class="float-right">{{ include('assignment/_delete_form.html.twig') }} </div>
+    </div>
+{% endblock %}

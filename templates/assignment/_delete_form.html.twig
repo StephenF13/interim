@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('assignment_delete', {'id': assignment.id}) }}"
+      onsubmit="return confirm('Voulez-vous vraiment supprimer cette mission ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ assignment.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AssignmentRepository")
@@ -36,11 +37,12 @@ class Assignment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Interim", inversedBy="assignments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $interim;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Contract", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Contract", inversedBy="assignments", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $contract;
@@ -97,4 +99,20 @@ class Assignment
 
         return $this;
     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->contract->getInterim() != $this->interim) {
+            $context->buildViolation("Choisissez un contrat appartenant à l'intérimaire sélectionné")
+                ->atPath('contract')
+                ->addViolation();
+        }
+    }
+
+// https://symfony.com/doc/current/form/dynamic_form_modification.html#form-events-submitted-data
+// TODO instead of callback validate = use dynamic form modif to have only contracts related to chosen interim, using ajax ?
+// pb display when many contracts and interim
 }

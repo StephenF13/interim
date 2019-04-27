@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des missions{% endblock %}
+
+{% block body %}
+    <div class="p-3">
+        <h1>Liste des missions</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>N°</th>
+                <th>Interimaire</th>
+                <th>Contrat</th>
+                <th>Note</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for assignment in assignments %}
+                <tr>
+                    <td>{{ assignment.id }}</td>
+                    <td>{{ assignment.interim }}</td>
+                    <td>{{ assignment.contract }}</td>
+                    <td>{{ assignment.rating }}</td>
+                    <td>{{ assignment.status }}</td>
+                    <td>
+                        <a href="{{ path('assignment_show', {'id': assignment.id}) }}"><i class="far fa-eye"></i></a>
+                        <a href="{{ path('assignment_edit', {'id': assignment.id}) }}"><i class="far fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune mission trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary m-3" href="{{ path('assignment_new') }}">Ajouter une mission</a>
+{% endblock %}

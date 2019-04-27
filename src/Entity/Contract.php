@@ -45,6 +45,11 @@ class Contract
      */
     private $interim;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Assignment", mappedBy="contract", cascade={"persist", "remove"})
+     */
+    private $assignments;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,5 +101,26 @@ class Contract
         $this->interim = $interim;
 
         return $this;
+    }
+
+    function __toString()
+    {
+        return $this->interim . ' du ' . $this->dateStart->format('d-m-Y') . ' au ' . $this->dateEnd->format('d-m-Y');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAssignments()
+    {
+        return $this->assignments;
+    }
+
+    /**
+     * @param mixed $assignments
+     */
+    public function setAssignments($assignments): void
+    {
+        $this->assignments = $assignments;
     }
 }
