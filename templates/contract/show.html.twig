@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contrat{% endblock %}
+
+{% block body %}
+    <div class="p-3">
+        <h1>Contrat</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Interimaire</th>
+                <td>{{ contract.interim }}</td>
+            </tr>
+            <tr>
+                <th>Date de début</th>
+                <td>{{ contract.dateStart ? contract.dateStart|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date de fin</th>
+                <td>{{ contract.dateEnd ? contract.dateEnd|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ contract.status }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ path('contract') }}">Retour à la liste</a>
+    <br>
+    <div class="mt-5">
+        <a class="btn btn-primary float-left" href="{{ path('contract_edit', {'id': contract.id}) }}">Modifier</a>
+        <div class="float-right">{{ include('contract/_delete_form.html.twig') }} </div>
+    </div>
+{% endblock %}

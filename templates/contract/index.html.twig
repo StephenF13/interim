@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des contrats{% endblock %}
+
+{% block body %}
+    <div class="p-3">
+        <h1>Liste des contrats</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Intérimaire</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contract in contracts %}
+                <tr>
+                    <td>{{ contract.interim }}</td>
+                    <td>{{ contract.dateStart ? contract.dateStart|date('d-m-Y') : '' }}</td>
+                    <td>{{ contract.dateEnd ? contract.dateEnd|date('d-m-Y') : '' }}</td>
+                    <td>{{ contract.status }}</td>
+                    <td>
+                        <a href="{{ path('contract_show', {'id': contract.id}) }}"><i class="far fa-eye"></i></a>
+                        <a href="{{ path('contract_edit', {'id': contract.id}) }}"><i class="far fa-edit"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun contrat</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-primary m-3" href="{{ path('contract_new') }}">Ajouter un contrat</a>
+{% endblock %}
