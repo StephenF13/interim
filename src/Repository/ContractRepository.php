@@ -44,4 +44,13 @@ class ContractRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findStartTomorrow()
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.dateStart = :tomorrow')
+            ->setParameter('tomorrow', new \DateTime('tomorrow'))
+            ->getQuery()
+            ->getResult();
+    }
 }
