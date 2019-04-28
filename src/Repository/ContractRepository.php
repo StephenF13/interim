@@ -32,32 +32,16 @@ class ContractRepository extends ServiceEntityRepository
         // ok classé par date ? faire group ? ou desc dateEnd ?
 
     }
-    // /**
-    //  * @return Contract[] Returns an array of Contract objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Contract
+    // find completed contracts with status != 'Terminé'
+    public function findCompletedContracts()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.dateEnd < :today')
+            ->setParameter('today', new \DateTime())
+            ->andWhere('c.status != :status')
+            ->setParameter('status', 'Terminé')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }
