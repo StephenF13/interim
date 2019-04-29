@@ -29,7 +29,6 @@ class ContractRepository extends ServiceEntityRepository
             ->setParameter('dateEnd', $dateEnd)
             ->getQuery()
             ->getResult();
-        // ok classé par date ? faire group ? ou desc dateEnd ?
 
     }
 

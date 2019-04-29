@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,11 +37,20 @@ class ContractType extends AbstractType
                     'Terminé'    => 'Terminé',
                 ],
             ])
-            ->add('interim', EntityType::class, [
-                'class' => Interim::class,
+            //  this part is for classic search
+//            ->add('interim', EntityType::class, [
+//                'class' => Interim::class,
+//                'label' => 'Intérimaire',
+//            ]);
+
+            // this part is for ajax search
+            ->add('interim', TextType::class, [
                 'label' => 'Intérimaire',
+                'attr'  => [
+                    'placeholder' => 'Rechercher par le nom de l\'intérimaire',
+                ],
             ]);
-        // ensuite mettre en textype pour recherche par ajax
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

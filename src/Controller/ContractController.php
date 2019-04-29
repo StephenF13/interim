@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Contract;
+use App\Entity\Interim;
 use App\Form\ContractType;
 use App\Repository\ContractRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,4 +93,31 @@ class ContractController extends AbstractController
 
         return $this->redirectToRoute('contract');
     }
+
+    /**
+     * @Route("/search", name="search", methods={"POST"})
+     */
+    public function searchAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $value = $request->get('value');
+        $interims = $em->getRepository(Interim::class)->findByNameOrFirstname($value);
+        if (!$value) {
+            $result['error'] = "Aucun intérimaire trouvé";
+        } else {
+            foreach ($interims as $interim) {
+                $result['interim'] = $interim->getName();
+            }
+        }
+
+
+//        TODO finish this part (ajax search interim in contract form)
+        // https://symfony.com/doc/2.3/cookbook/form/data_transformers.html#harder-example-transforming-an-issue-number-into-an-issue-entity
+        // need to transform string into entity Interim
+        // try to put Interim's Id in <li> and use it with data transformer to send Interim entity and create a contract
+
+        return new JsonResponse($result);
+    }
+
 }

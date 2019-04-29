@@ -114,5 +114,5 @@ class Assignment
 
 // https://symfony.com/doc/current/form/dynamic_form_modification.html#form-events-submitted-data
 // TODO instead of callback validate = use dynamic form modif to have only contracts related to chosen interim, using ajax ?
-// pb display when many contracts and interim
+// problem display when many contracts and interim ?
 }

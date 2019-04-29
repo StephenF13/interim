@@ -11,3 +11,46 @@
 
     <a href="{{ path('contract') }}">Retour à la liste</a>
 {% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        // TODO finish and put this script in edit template too
+        // limit ajax requests
+        $(function () {
+
+
+            $("#contract_interim").on('keyup', function () {
+                var value = $(this).val();
+                var listInterim = $("#searchResult");
+                listInterim.html('');
+                listInterim = listInterim.append('<ul class="list-group"></ul>');
+                if (value.length >= 2) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('search') }}",
+                        data: {
+                            'value': value
+                        },
+                        dataType: "json",
+                        timeout: 2000,
+                        success: function (response) {
+                            $.each(response, function (value) {
+                                console.log(response.interim);
+                                listInterim.append('<li class="list-group-item">' + response.interim + '</li>');
+                                listInterim.on('click', function () {
+                                    $('#contract_interim').val($(this).text());
+                                    listInterim.html('');
+                                });
+                            })
+
+                        },
+                        error: function () {
+                            listInterim.append('<li> Aucun Intérimaire trouvé </li>');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

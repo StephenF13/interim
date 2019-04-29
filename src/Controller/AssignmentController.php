@@ -46,7 +46,7 @@ class AssignmentController extends AbstractController
 
             $lastAssignment->setStatus('Supprimé');
 
-            // do not allow to change status in form ?
+            // Do we have to not allow to change status in form ?
             $assignment->setStatus('Actif');
             $entityManager->persist($assignment);
             $entityManager->flush();

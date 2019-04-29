@@ -72,5 +72,4 @@ class StatisticsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

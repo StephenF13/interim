@@ -23,29 +23,13 @@ class InterimRepository extends ServiceEntityRepository
     public function findByNameOrFirstname($value)
     {
         return $this->createQueryBuilder('i')
-//            ->addSelect('a')
-//            ->from('Assignment', 'a')
-//            ->
-            ->andWhere('i.name LIKE :val')
-            ->setParameter('val', '%'.$value.'%')
-            ->orWhere('i.firstname LIKE :val')
-            ->setParameter('val', '%'.$value.'%')
-//            ->orderBy('i.id', 'DESC')
+            ->andWhere('i.name LIKE :name')
+            ->setParameter('name', '%' . $value . '%')
+            ->orWhere('i.firstname LIKE :name')
+            ->setParameter('name', '%' . $value . '%')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Interim
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

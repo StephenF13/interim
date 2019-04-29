@@ -20,7 +20,7 @@ class SendMailInterimCommand extends Command
     private $mailer;
     private $engine;
 
-    // container aware command deprecated, need to inject templating engine
+    // container aware command deprecated, so we inject templating engine
     public function __construct(EntityManagerInterface $entityManager, \Swift_Mailer $mailer, EngineInterface $engine)
     {
         $this->entityManager = $entityManager;
@@ -42,7 +42,7 @@ class SendMailInterimCommand extends Command
 
         $contracts = $this->entityManager->getRepository(Contract::class)->findStartTomorrow();
 
-        // TODO configure swift mailer in .env
+        // TODO configure swift mailer in .env if you want to send emails
         foreach ($contracts as $contract) {
             $interimMail = $contract->getInterim()->getMail();
             $message = (new Swift_Message('Your contract start tomorrow'))
