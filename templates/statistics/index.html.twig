@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+
+    <h2 class="mt-4">Exporter un csv comportant les contrats sur la période choisie</h2>
+
+    <div class="p-3">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

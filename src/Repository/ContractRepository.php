@@ -53,4 +53,16 @@ class ContractRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBetween($dateStart, $dateEnd)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.dateStart >= :dateStart')
+            ->setParameter('dateStart', $dateStart)
+            ->andWhere('c.dateStart <= :dateEnd')
+            ->setParameter('dateEnd', $dateEnd)
+            ->orderBy('c.dateStart', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }
