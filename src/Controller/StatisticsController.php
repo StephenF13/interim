@@ -29,6 +29,8 @@ class StatisticsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $contracts = $entityManager->getRepository(Contract::class)->findBetween($dateStart, $dateEnd);
 
+//       source :   https://openclassrooms.com/forum/sujet/export-csv-symfony-3?page=1
+
             $fileName = "export_contracts_" . date("d_m_Y") . ".csv";
             $response = new StreamedResponse();
 
